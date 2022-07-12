@@ -1,36 +1,73 @@
-.\" Manpage for _printf
-.TH man 8 "27 October 2020" "1.0" "_printf man page"
+.TH _PRINTF 3 "12 July 2022" "1" "_printf Manual"
 .SH NAME
-_printf - format and write a string, character or integer to stdout
+_printf()
+
+The _printf function echoes the functionality of printf().
 .SH SYNOPSIS
-#include "holberton.h"
-.br
-#include <stdarg.h>
-.br
-#include <stdlib.h>
-.br
-.br
-int _printf(const char *format, ...)
+.B #include "main.h"
+
+.B int _printf(const char \fI*format\fR,
+.B ...)
 
 .SH DESCRIPTION
-The function _printf() produces output according to format described below, writes output to stdout.
+The functions in _printf() writes output according to a format as described below.
 
-.SS Return value
-.br
-upon successful return, this function returns a number of characters
-printed (excluding the null byte)
+.B Return Value
+.RS 3
+Upon successful return, the functions return the number of characters printed (excluding the null byte used to end output to strings).
+If an output error is encountered, a negative value is returned.
+.RE
 
-if an output error is encountered, a negative value is returned
+.B Format of the format string
+.RS 3
+The format string is a character string, beginning and ending in its initial shift state, if any. The format string is composed of zero or more  directives: ordinary  characters  (not  %), which are copied unchanged to the output stream; and conversion specifications, each of which results in fetching  zero  or  more subsequen arguments.  Each conversion specification is introduced by the character %, and ends with a conversion specifier.
+By default, the arguments are used in the order given.
+.RE
 
-.SS The format string
-It is a character string, composed of zero or more directives, ordinary characters which are copied and unchanged to the stdout, each conversion specifier is introduced with %
+.B The conversion specifier
+.RS 3
+A character that specifies the type of conversion to be applied. The conversion specifiers and their meanings are:
 
-.br
-.SH BUGS
-No known bugs
-.SS colphon
-.br
-This page was created in collaboration with ALX-Holberton, 20 minutes before the submission deadline.
+.B d, i
+.RS 6
+The \fIint\fR argument is converted to signed decimal notation.
+.RE
 
-.SH AUTHORS
-.B Alfaxad Eyembe and Emmanuel Murairi
+.B c
+.RS 6
+The \fIint\fR argument is converted to an unsigned char, and the resulting character is written.
+.RE
+
+.B s
+.RS 6
+The \fIconst char *\fR argument is expected to be a pointer to an array of character type (pointer to a string).  Characters from the array are written up to (but not including) a terminating null byte ('\0').
+.RE
+
+.B %
+.RS 6
+A '%' is written. No argument is converted.  The complete conversion specifications i '%%'.
+.RE
+
+.SH NOTES
+Currently, the program doesn't account for flags, fields, precision, or length modifiers.
+
+.SH EXAMPLE
+.RS 3
+To print a sentence with conversion specifiers:
+
+.RE
+
+.RS 8
+#include "main.h"
+
+_printf("The %s jumped %d times!", "dog", 4);
+.RE
+
+.RS 3
+Output : "The dog jumped 4 times!"
+.RE
+
+.SH SEE ALSO
+.B printf(3)
+.SH AUTHOR
+Mitali Sengupta, Omar Contreras
